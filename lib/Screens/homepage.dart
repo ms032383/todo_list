@@ -223,8 +223,8 @@ class _homepageState extends State<homepage> {
               }) {
                 final newTask = TaskModel(
                   title: title,
-                  schedule: schedule,
-                  finish: finish,
+                  schedule: TaskModel.formatTimeOfDay(schedule),
+                  finish: TaskModel.formatTimeOfDay(finish),
                   weightage: weightage,
                 );
                 Provider.of<TaskProvider>(context, listen: false).addtask(newTask);
@@ -304,7 +304,7 @@ Widget _buildSlidableTaskTile(BuildContext context, TaskModel task, int index) {
               : null,
         ),
         subtitle: Text(
-          'Schedule: ${task.schedule.format(context)} | Finish: ${task.finish.format(context)}',
+          'Schedule: ${task.scheduleTime.format(context)} | Finish: ${task.finishTime.format(context)}',
         ),
         trailing: Text('⭐ ${task.weightage}'),
         contentPadding: EdgeInsets.zero,
