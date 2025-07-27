@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:todo_list/Theme/theme_provider.dart';
 
 import 'Models/task_model.dart';
 import 'Providers/task_provider.dart';
@@ -39,6 +40,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => TaskProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: const MyApp(),
     ),
@@ -50,10 +52,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       title: 'Todo List App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
+      themeMode: themeProvider.themeMode,
+      theme: ThemeData(
         primaryColor: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: const AppBarTheme(
@@ -62,7 +66,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      darkTheme: ThemeData.dark().copyWith(
+      darkTheme: ThemeData(
         primaryColor: Colors.teal,
         scaffoldBackgroundColor: Colors.teal,
         appBarTheme: AppBarTheme(
@@ -70,7 +74,6 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
       ),
-      themeMode: ThemeMode.system,
       home: const homepage(),
     );
   }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Theme/theme_provider.dart';
 
 class bar extends StatelessWidget implements PreferredSizeWidget {
   final void Function(int) onTabSelected;
@@ -12,6 +15,15 @@ class bar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: const Text('T O D O L I S T'),
       elevation: 4,
+      actions: [
+        Switch(
+          value: Provider.of<ThemeProvider>(context).isDarkMode,
+          onChanged: (value) {
+            Provider.of<ThemeProvider>(context, listen: false).toogleTheme(value);
+          },
+        )
+
+      ],
       leading: IconButton(
         icon: const Icon(Icons.menu),
         onPressed: () {
